@@ -22,6 +22,29 @@ config FB_S5P_LCD_INIT
 	depends on FB_S5P
 	default y
 
+choice
+depends on FB_S5P_LCD_INIT
+prompt "Select LCD board type to initialize"
+default FB_S5P_LCD_INIT_HKLVDS
+
+config FB_S5P_LCD_INIT_HKLVDS
+	bool "Hardkernel RGB-to-LVDS Adapter"
+	depends on MACH_ODROID_4X12
+	help
+	  This enables support for automatic initialization of the LCD panel using the 
+	  Hardkernel RGB-to-LVDS adapter board.  Select Y if you are using the 13.3"
+	  LCD panel with the adapter board that comes with it.
+
+config FB_S5P_LCD_INIT_FLXODXEB
+	bool "FLX ODROID-X/X2 Expansion Board"
+	depends on MACH_ODROID_4X12
+	help
+	  This enables support for automatic initialization of the LCD panel using the
+	  FLXODXEB Expansion Board.  Select Y if you are using the 13.3" LCD panel provided
+	  by Hardkernel with this Chinese aftermarket expansion board.
+
+endchoice
+
 config FB_S5P_DEBUG
 	bool "S5P Framebuffer debug messages"
 	depends on FB_S5P

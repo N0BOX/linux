@@ -56,10 +56,20 @@ static void s3cfb_gpio_setup_24bpp(unsigned int start, unsigned int size,
 void s3cfb_cfg_gpio(struct platform_device *pdev)
 {
 #if defined(CONFIG_BOARD_ODROID_X)||defined(CONFIG_BOARD_ODROID_X2)||defined(CONFIG_BOARD_ODROID_U)||defined(CONFIG_BOARD_ODROID_U2)
-	s3cfb_gpio_setup_24bpp(EXYNOS4_GPF0(0), 8, S3C_GPIO_SFN(2), S5P_GPIO_DRVSTR_LV4);
-	s3cfb_gpio_setup_24bpp(EXYNOS4_GPF1(0), 8, S3C_GPIO_SFN(2), S5P_GPIO_DRVSTR_LV4);
-	s3cfb_gpio_setup_24bpp(EXYNOS4_GPF2(0), 8, S3C_GPIO_SFN(2), S5P_GPIO_DRVSTR_LV4);
-	s3cfb_gpio_setup_24bpp(EXYNOS4_GPF3(0), 4, S3C_GPIO_SFN(2), S5P_GPIO_DRVSTR_LV4);
+	#ifdef CONFIG_FB_S5P_LCD_INIT_FLXODXEB
+		s3cfb_gpio_setup_24bpp(EXYNOS4_GPF0(0), 4, S3C_GPIO_SFN(2), S5P_GPIO_DRVSTR_LV3);
+		s3cfb_gpio_setup_24bpp(EXYNOS4_GPF0(6), 2, S3C_GPIO_SFN(2), S5P_GPIO_DRVSTR_LV1);
+		s3cfb_gpio_setup_24bpp(EXYNOS4_GPF1(0), 4, S3C_GPIO_SFN(2), S5P_GPIO_DRVSTR_LV1);
+		s3cfb_gpio_setup_24bpp(EXYNOS4_GPF1(6), 2, S3C_GPIO_SFN(2), S5P_GPIO_DRVSTR_LV1);
+		s3cfb_gpio_setup_24bpp(EXYNOS4_GPF2(0), 4, S3C_GPIO_SFN(2), S5P_GPIO_DRVSTR_LV1);
+		s3cfb_gpio_setup_24bpp(EXYNOS4_GPF2(6), 2, S3C_GPIO_SFN(2), S5P_GPIO_DRVSTR_LV1);
+		s3cfb_gpio_setup_24bpp(EXYNOS4_GPF3(0), 4, S3C_GPIO_SFN(2), S5P_GPIO_DRVSTR_LV1);
+	#else
+		s3cfb_gpio_setup_24bpp(EXYNOS4_GPF0(0), 8, S3C_GPIO_SFN(2), S5P_GPIO_DRVSTR_LV4);
+		s3cfb_gpio_setup_24bpp(EXYNOS4_GPF1(0), 8, S3C_GPIO_SFN(2), S5P_GPIO_DRVSTR_LV4);
+		s3cfb_gpio_setup_24bpp(EXYNOS4_GPF2(0), 8, S3C_GPIO_SFN(2), S5P_GPIO_DRVSTR_LV4);
+		s3cfb_gpio_setup_24bpp(EXYNOS4_GPF3(0), 4, S3C_GPIO_SFN(2), S5P_GPIO_DRVSTR_LV4);
+	#endif
 #else	
 	s3cfb_gpio_setup_24bpp(EXYNOS4_GPF0(0), 8, S3C_GPIO_SFN(2), S5P_GPIO_DRVSTR_LV4);
 	s3cfb_gpio_setup_24bpp(EXYNOS4_GPF1(0), 8, S3C_GPIO_SFN(2), S5P_GPIO_DRVSTR_LV1);
