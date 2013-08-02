@@ -393,6 +393,7 @@ static struct platform_device *hkdk4412_devices[] __initdata = {
 	&mali_gpu_device,
 #if defined(CONFIG_S5P_DEV_TV)
 	&s5p_device_hdmi,
+	&s5p_device_cec,
 	&s5p_device_i2c_hdmiphy,
 	&s5p_device_mixer,
 	&hdmi_fixed_voltage,
@@ -417,6 +418,12 @@ static struct platform_device *hkdk4412_devices[] __initdata = {
 #endif
 };
 
+#if defined(CONFIG_S5P_DEV_TV)
+static struct s5p_platform_cec hdmi_cec_data __initdata = {
+
+};
+#endif
+
 static void __init hkdk4412_map_io(void)
 {
 	clk_xusbxti.rate = 24000000;
@@ -428,7 +435,7 @@ static void __init hkdk4412_map_io(void)
 
 static void __init hkdk4412_reserve(void)
 {
-	s5p_mfc_reserve_mem(0x43000000, 8 << 20, 0x51000000, 8 << 20);
+	s5p_mfc_reserve_mem(0x43000000, 16 << 20, 0x51000000, 16 << 20);
 }
 
 #if defined(CONFIG_S5P_DEV_TV)
@@ -525,6 +532,7 @@ static void __init hkdk4412_machine_init(void)
 	s5p_tv_setup();
 	s5p_i2c_hdmiphy_set_platdata(NULL);
 	s5p_hdmi_set_platdata(&hdmiphy_info, NULL, 0);
+	s5p_hdmi_cec_set_platdata(&hdmi_cec_data);
 #endif
 
 	s5p_fimd0_set_platdata(&hkdk4412_fb_pdata);
